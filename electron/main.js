@@ -2,6 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import { join, dirname } from "node:path";
 import { fileURLToPath } from 'url'
 import isDev from "electron-is-dev";
+import { windowOption } from "./config/browerWindowOption.js";
 
 app.commandLine.appendSwitch('ignore-certificate-errors');
 const _fileURLToPath = fileURLToPath(import.meta.url);
@@ -9,8 +10,7 @@ const createWindow = () => {
   // Create the browser window.
   console.log(dirname(_fileURLToPath))
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    ...windowOption,
     webPreferences: {
       preload: join(dirname(_fileURLToPath), '/preload/index.js'),
       // 禁用网页安全性（仅开发环境）

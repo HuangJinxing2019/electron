@@ -1,8 +1,7 @@
 
 <template>
   <div>
-    <Layout />
-<!--    <a-button type="primary" @click="setTitle">设置标题</a-button>-->
+    <router-view></router-view>
   </div>
 </template>
 
@@ -14,6 +13,5 @@
 </script>
 
 
-<style scoped>
-
+<style lang="scss" scoped>
 </style>

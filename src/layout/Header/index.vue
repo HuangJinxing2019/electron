@@ -1,6 +1,6 @@
 <template>
-  <a-layout-header class="header">
-    23232
+  <a-layout-header style="background: #fff">
+    <span class="font-bold text-2xl">ELECTRON</span>
   </a-layout-header>
 </template>
 

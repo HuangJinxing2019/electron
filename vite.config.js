@@ -5,7 +5,6 @@ import { resolve } from 'node:path';
 const root = process.cwd();
 const pathResolve = (pathname) => resolve(root, '.', pathname);
 export default defineConfig({
-  plugins: [vue()],
   resolve: {
     extensions: ['.vue', '.js'],
     alias: [
@@ -21,5 +20,6 @@ export default defineConfig({
   },
   server: {
     port: 8888,
-  }
+  },
+  plugins: [vue()]
 })

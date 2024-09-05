@@ -14,17 +14,35 @@ export const routes = [
         meta: {
           parentPath: '/'
         },
-        title: '属性介绍',
+        title: '实例属性',
         component: () => import('@/views/browserWindow/property/index.vue')
       },
       {
         path: '/browserWindow/customWindow',
         name: 'customBrowserWindow',
-        title: '定义窗口',
+        title: '自定义窗口',
         meta: {
           parentPath: '/'
         },
         component: () => import('@/views/browserWindow/customWindow/index.vue')
+      },
+      {
+        path: '/browserWindow/browserEvent',
+        name: 'browserEvent',
+        title: '实例事件',
+        meta: {
+          parentPath: '/'
+        },
+        component: () => import('@/views/browserWindow/browserEvent/index.vue')
+      },
+      {
+        path: '/browserWindow/browserFunction',
+        name: 'browserFunction',
+        title: '实例方法',
+        meta: {
+          parentPath: '/'
+        },
+        component: () => import('@/views/browserWindow/browserFunction/index.vue')
       }
     ]
   }

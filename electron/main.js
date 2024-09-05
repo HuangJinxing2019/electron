@@ -3,26 +3,37 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from 'url'
 import isDev from "electron-is-dev";
 import { windowOption } from "./config/browerWindowOption.js";
+import { initBrowserWindowEvent } from "./utils/browserWindow.js";
 
 app.commandLine.appendSwitch('ignore-certificate-errors');
 const _fileURLToPath = fileURLToPath(import.meta.url);
 const createWindow = () => {
   // Create the browser window.
-  console.log(dirname(_fileURLToPath))
   const mainWindow = new BrowserWindow({
     ...windowOption,
     webPreferences: {
-      preload: join(dirname(_fileURLToPath), '/preload/index.js'),
+      preload: join(dirname(_fileURLToPath), '/preload/index.mjs'),
       // 禁用网页安全性（仅开发环境）
       webSecurity: !isDev,
+      // contextIsolation: false, // 关闭上下文隔离
+      // nodeIntegration: true,
+      sandbox: false,
     }
   })
+  // 添加监听窗口操作时间
+  initBrowserWindowEvent(mainWindow);
+
+  // show为false是，ready-to-show事件后显示窗口
+  mainWindow.once('ready-to-show', () => {
+    mainWindow.show()
+  })
+
   // 加载 index.html
   if(isDev){
     // 开发环境
     mainWindow.loadURL('http://localhost:8888/')
     // 打开开发工具
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
   } else {
     // 生成环境
   }

@@ -30,7 +30,7 @@ export const windowOption = {
   shadow: true,
   // 隐藏菜单栏，需要browserWindow.menuBarVisible = false方式设置才有效，否则无效, 默认值为true
   // 适用于windows、macOS
-  menuBarVisible: false,
+  menuBarVisible: true,
   // 用于决定窗口是否处于kiosk模式，看起来类似于全屏模式。
   kiosk: false,
   // 指明窗口文档是否已被编辑, 当设置为 true 时，标题栏的图标将变灰

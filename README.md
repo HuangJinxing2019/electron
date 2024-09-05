@@ -66,10 +66,10 @@ const createWindow = () => {
 1. 在预加载文件中添暴露给页面使用的API方法，将这些方法集合挂载到window下。
 2. ipcMain主程序中监听页面方法执行。
 > 注意：<br/>
-> 随着系统的完善，页面与Electron的通信也会越来越多，将这些暴露给页面调用的方法进行拆分，分别创建穿件不容的文件，然后再引入到预加载文件。
-> 由于模块加载方式是ES Module。Electron 中的 ES 模块（ESM）在 electron@28.0.0 版本起支持，预加载脚本也可使用 import 方式加载，也有一些局限性。
-> 预加载文件及引入的相关文件后缀都要是 .mjs 。
-> 在实际操作中，还需要对渲染进程禁止沙盒化 sandbox: false 配置。
+> 随着系统的完善，页面与Electron的通信也会越来越多，将这些暴露给页面调用的方法进行拆分，分别创建穿件不容的文件，然后再引入到预加载文件。<br/>
+> 由于模块加载方式是ES Module。Electron 中的 ES 模块（ESM）在 electron@28.0.0 版本起支持，预加载脚本也可使用 import 方式加载，也有一些局限性。<br/>
+> 预加载文件及引入的相关文件后缀都要是 .mjs 。<br/>
+> 在实际操作中，还需要对渲染进程禁止沙盒化 sandbox: false 配置。<br/>
 ```javascript
 // browserWindow.mjs
 import { contextBridge, ipcRenderer } from 'electron/renderer'

@@ -60,3 +60,41 @@ const createWindow = () => {
     yarn serve
 ```
 6. 项目启动成功
+
+## 页面与Electron之间通信
+在 Electron 中，进程使用 ipcMain 和 ipcRenderer 模块，通过开发人员定义的“通道”传递消息来进行通信，通过contextBridge来建立两者的通信。
+1. 在预加载文件中添暴露给页面使用的API方法，将这些方法集合挂载到window下。
+2. ipcMain主程序中监听页面方法执行。
+> 注意：<br/>
+> 随着系统的完善，页面与Electron的通信也会越来越多，将这些暴露给页面调用的方法进行拆分，分别创建穿件不容的文件，然后再引入到预加载文件。
+> 由于模块加载方式是ES Module。Electron 中的 ES 模块（ESM）在 electron@28.0.0 版本起支持，预加载脚本也可使用 import 方式加载，也有一些局限性。
+> 预加载文件及引入的相关文件后缀都要是 .mjs 。
+> 在实际操作中，还需要对渲染进程禁止沙盒化 sandbox: false 配置。
+```javascript
+// browserWindow.mjs
+import { contextBridge, ipcRenderer } from 'electron/renderer'
+contextBridge.exposeInMainWorld('browserWindowAPI', {
+    setTitle: (title) => ipcRenderer.send('set-title', title),
+})
+```
+```javascript
+// preload.mjs
+import './browserWindow.mjs'
+```
+
+```javascript
+// main.js
+const mainWindow = new BrowserWindow({
+    preload: join(dirname(_fileURLToPath), '/preload/index.mjs'),
+    webPreferences: {
+        sandbox: false,
+    }
+})
+```
+```javascript
+// rendern.js，页面引入的js文件
+function setTitle(){
+    window.browserWindowAPI.setTitle('第一个桌面应用')
+}
+```
+

@@ -22,7 +22,7 @@ export const windowOption = {
 
   // 确定窗口是否可作为焦点被选中， false无法操作窗口的菜单和窗口的最小化、最大化、窗口关闭按钮。
   // 适用于windows、macOS
-  focusable : true,
+  focusable: true,
   // 用于决定窗口是否在所有工作区中可见， Windows 上无法设置，始终返回 false
   // 适用于macOS、Linux
   visibleOnAllWorkspaces: true,
@@ -42,10 +42,8 @@ export const windowOption = {
   // 设置窗口标题，需要browserWindow.title = '我的第一个应用' 方式设置才有效
   title: '我的第一个应用',
   // 决定窗口是否可被用户手动最小化。默认值true
-  // 适用于macOS、Linux
   minimizable: true,
   // 决定窗口是否可被用户手动最大化。默认值true
-  // 适用于macOS、Linux
   maximizable: true,
   // 决定最大化/缩放窗口按钮是切换全屏模式还是最大化窗口, 需要browserWindow.fullScreenable = true方式设置才有效, 默认值：true
   // 不知道咋玩。

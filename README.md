@@ -136,4 +136,5 @@ async function setTitle(){
     console.log(title)
 }
 ```
+> invoke是Electron 7添加的，旧版本通过send、on也能做到双向通信，其中他有一定的弊端，详情请看[官方文档](https://www.electronjs.org/zh/docs/latest/tutorial/ipc#%E6%B3%A8%E6%84%8F%E5%AF%B9%E4%BA%8E%E6%97%A7%E6%96%B9%E6%B3%95)
 

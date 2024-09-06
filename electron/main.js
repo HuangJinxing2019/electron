@@ -22,7 +22,35 @@ const createWindow = () => {
   })
   // 添加监听窗口操作时间
   initBrowserWindowEvent(mainWindow);
-
+  // setTimeout(() => {
+  //   console.log(mainWindow)
+  //
+  // }, 2000)
+  setTimeout(() => {
+    mainWindow.webContents.send('on-init-browser', {
+      autoHideMenuBar: mainWindow.autoHideMenuBar,
+      focusable: mainWindow.focusable,
+      visibleOnAllWorkspaces: mainWindow.visibleOnAllWorkspaces,
+      shadow: mainWindow.shadow,
+      menuBarVisible: mainWindow.menuBarVisible,
+      kiosk: mainWindow.kiosk,
+      documentEdited: mainWindow.documentEdited,
+      representedFilename: mainWindow.representedFilename,
+      title: mainWindow.title,
+      minimizable: mainWindow.minimizable,
+      maximizable: mainWindow.maximizable,
+      fullScreenable: mainWindow.fullScreenable,
+      resizable: mainWindow.resizable,
+      closable: mainWindow.closable,
+      movable: mainWindow.movable,
+      excludedFromShownWindowsMenu: mainWindow.excludedFromShownWindowsMenu,
+      accessibleTitle: mainWindow.accessibleTitle,
+      titleBarStyle: mainWindow.titleBarStyle,
+      titleBarOverlay: mainWindow.titleBarOverlay,
+      simpleFullScreen: mainWindow.simpleFullScreen,
+      fullScreen: mainWindow.fullScreen,
+    })
+  }, 3000)
   // show为false是，ready-to-show事件后显示窗口
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()

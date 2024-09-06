@@ -17,8 +17,8 @@ export const windowOption = {
   autoHideMenuBar: false,
 
   // 窗口全屏，需要browserWindow.simpleFullScreen = true方式设置才有效，否则无效
-  // simpleFullScreen: false,
-  // fullScreen: false,
+  simpleFullScreen: false,
+  fullScreen: false,
 
   // 确定窗口是否可作为焦点被选中， false无法操作窗口的菜单和窗口的最小化、最大化、窗口关闭按钮。
   // 适用于windows、macOS
@@ -72,11 +72,11 @@ export const windowOption = {
   // customButtonsOnHover 适用于macOS 标题栏样式将隐藏红绿灯，鼠标悬浮在上面才会显示
   // hiddenInset 在masOS上自定义红绿灯的位置，需要与“trafficLightPosition”结合使用
   // masOS显示和隐藏红绿灯还可以通过“.setWindowButtonVisibility(true/false)”方法开控制
-  titleBarStyle: 'hiddenInset',
+  titleBarStyle: 'customButtonsOnHover',
   // 红绿灯的偏移坐标
   trafficLightPosition: { x: 10, y: 10 },
   // 参数值可以是boolean值，或者是一个Object,当titleBarStyle=“hidden”时，窗口右上角会有窗口最小化、最大化、关闭窗口三个控件，与frame属性值无关。
-  titleBarOverlay: true,
+  // titleBarOverlay: true,
   // titleBarOverlay: {
   //   color: '#2f3241',
   //   symbolColor: '#74b1be',

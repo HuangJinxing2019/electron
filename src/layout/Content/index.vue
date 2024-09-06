@@ -1,12 +1,15 @@
 <template>
-  <a-layout style="padding: 10px">
-    <a-layout-content :style="{ background: '#fff', padding: '15px', margin: 0, minHeight: '280px' }">
-      <router-view></router-view>
+  <a-layout>
+    <a-layout-content class="overflow-y-auto; p-2 overflow-y-auto" style="height: calc(100vh - 64px)">
+      <div class="bg-white" style="min-height: 100%">
+        <router-view></router-view>
+      </div>
     </a-layout-content>
   </a-layout>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
 
 <style lang="scss" scoped>
 

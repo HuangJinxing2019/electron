@@ -2,3 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 滚动条整体样式 */
+::-webkit-scrollbar {
+    width: 6px; /* 宽度 */
+    height: 12px; /* 高度（用于水平滚动条） */
+}
+
+/* 滚动条轨道 */
+::-webkit-scrollbar-track {
+    background-color: #f1f1f1; /* 轨道背景色 */
+    border-radius: 6px; /* 轨道圆角 */
+}
+
+/* 滚动条滑块 */
+::-webkit-scrollbar-thumb {
+    background-color: #888; /* 滑块颜色 */
+    border-radius: 6px; /* 滑块圆角 */
+}
+
+/* 滑块在 hover 时的样式 */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* 滑块 hover 时的颜色 */
+}
+
+/* 滚动条两端的按钮 */
+::-webkit-scrollbar-button {
+    background-color: #ccc; /* 按钮背景色 */
+    display: none; /* 隐藏按钮 */
+}

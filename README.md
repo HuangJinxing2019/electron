@@ -70,6 +70,7 @@ const createWindow = () => {
 > 由于模块加载方式是ES Module。Electron 中的 ES 模块（ESM）在 electron@28.0.0 版本起支持，预加载脚本也可使用 import 方式加载，也有一些局限性。<br/>
 > 预加载文件及引入的相关文件后缀都要是 .mjs 。<br/>
 > 在实际操作中，还需要对渲染进程禁止沙盒化 sandbox: false 配置。<br/>
+### 单向通信：页面 -> Electron,使用send、on
 ```javascript
 // browserWindow.mjs
 import { contextBridge, ipcRenderer } from 'electron/renderer'
@@ -84,17 +85,55 @@ import './browserWindow.mjs'
 
 ```javascript
 // main.js
+import { ipcMain } from 'electron'
 const mainWindow = new BrowserWindow({
     preload: join(dirname(_fileURLToPath), '/preload/index.mjs'),
     webPreferences: {
         sandbox: false,
     }
 })
+ipcMain.on('set-title', (event, title) => {
+    mainWindow.setTitle(title)
+})
 ```
 ```javascript
 // rendern.js，页面引入的js文件
 function setTitle(){
-    window.browserWindowAPI.setTitle('第一个桌面应用')
+    window.browserWindowAPI.getTitle()
+}
+```
+
+### 双向通信。使用invoke、handle
+```javascript
+// browserWindow.mjs
+import { contextBridge, ipcRenderer } from 'electron/renderer'
+contextBridge.exposeInMainWorld('browserWindowAPI', {
+    getTitle: (title) => ipcRenderer.invoke('get-title'),
+})
+```
+```javascript
+// preload.mjs
+import './browserWindow.mjs'
+```
+
+```javascript
+// main.js
+import { ipcMain } from 'electron'
+const mainWindow = new BrowserWindow({
+    preload: join(dirname(_fileURLToPath), '/preload/index.mjs'),
+    webPreferences: {
+        sandbox: false,
+    }
+})
+ipcMain.handle('get-title', (event) => {
+    return mainWindow.title
+})
+```
+```javascript
+// rendern.js，页面引入的js文件 
+async function setTitle(){
+    const title = await window.browserWindowAPI.getTitle(); // 返回的是一个Promise
+    console.log(title)
 }
 ```
 

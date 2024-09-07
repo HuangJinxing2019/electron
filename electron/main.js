@@ -20,6 +20,7 @@ const createWindow = () => {
       sandbox: false,
     }
   })
+  mainWindow.maximize(true)
   // 添加监听窗口操作时间
   initBrowserWindowEvent(mainWindow);
   setTimeout(() => {
@@ -57,7 +58,7 @@ const createWindow = () => {
     // 开发环境
     mainWindow.loadURL('http://localhost:8888/')
     // 打开开发工具
-    mainWindow.webContents.openDevTools()
+    // mainWindow.webContents.openDevTools()
   } else {
     // 生成环境
   }

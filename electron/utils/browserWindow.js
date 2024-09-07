@@ -1,4 +1,4 @@
-import { ipcMain } from 'electron'
+import {BrowserWindow, ipcMain, nativeImage} from 'electron'
 
 export function initBrowserWindowEvent(win){
     ipcMain.on('set-title', (event, title) => {
@@ -52,4 +52,45 @@ export function initBrowserWindowEvent(win){
         win.fullScreen = flag
         return { key: 'fullScreen', value: win.fullScreen };
     })
+    // 获取所有打开的窗口的数组
+    ipcMain.handle('getAllWindows', () => {
+        return { key: 'getAllWindows', value: BrowserWindow.getAllWindows().map(item => ({id: item.id, title: item.title }))};
+    })
+    // 获取所有打开的窗口的数组
+    ipcMain.handle('getFocusedWindow', () => {
+        const brow = BrowserWindow.getFocusedWindow()
+        return { key: 'getFocusedWindow', value: brow && { id: brow.id, title: brow.title } || null };
+    })
+    // 获取所有打开的窗口的数组
+    ipcMain.handle('fromId', (event, id) => {
+        const brow = BrowserWindow.fromId(id)
+        return { key: 'fromId', value: brow && { id: brow.id, title: brow.title } || null };
+    })
+    ipcMain.handle('instanceMethod', (event, key, value) => {
+        if(key === 'setOverlayIcon' && value && value[0]){
+            value[0] = nativeImage.createFromPath(value[0])
+        } else if(key === 'setThumbarButtons'){
+            value = [
+                {
+                    icon: nativeImage.createFromPath('electron/assets/images/logo.png'),
+                    click: fn,
+                    tooltip: 'tooltip 提示文字',
+                    // flags: ['enabled', 'disabled', 'dismissonclick', 'nobackground', 'hidden', 'noninteractive']
+                }
+            ]
+        } else if(key === 'setAppDetails'){
+            value = [
+                {
+                    appId: 1,
+                    appIconPath: nativeImage.createFromPath('electron/assets/images/logo.png'),
+                }
+            ]
+        } else if(key === 'setIcon'){
+            value =  nativeImage.createFromPath(value)
+        }
+        return Array.isArray(value) && key !== 'setShape' && key !== 'setThumbarButtons' && key !== 'setAppDetails' ? win[key](value[0], value[1], value[2]) : win[key](value);
+    })
+}
+function fn(e){
+    console.log(e)
 }

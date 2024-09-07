@@ -135,9 +135,7 @@
   import {ref} from "vue";
   const browserWindow = ref({});
   window.browserWindowAPI.getContext((ctx) => {
-    console.log('=======================')
     browserWindow.value = ctx;
-    console.log(ctx)
   });
   async function handleClick(eventName, value){
     const result = await window.browserWindowAPI[eventName](value);

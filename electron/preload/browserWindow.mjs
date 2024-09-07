@@ -15,4 +15,9 @@ contextBridge.exposeInMainWorld('browserWindowAPI', {
     setMovable: (flag) => ipcRenderer.invoke('setMovable', flag),
     setSimpleFullScreen: (flag) => ipcRenderer.invoke('setSimpleFullScreen', flag),
     setFullScreen: (flag) => ipcRenderer.invoke('setFullScreen', flag),
+    // 获取所有打开的窗口的数组
+    getAllWindows: () => ipcRenderer.invoke('getAllWindows'),
+    getFocusedWindow: () => ipcRenderer.invoke('getFocusedWindow'),
+    fromId: (id) => ipcRenderer.invoke('fromId', id),
+    instanceMethod: (key, value) => ipcRenderer.invoke('instanceMethod', key, value),
 })

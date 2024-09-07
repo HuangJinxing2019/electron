@@ -22,10 +22,6 @@ const createWindow = () => {
   })
   // 添加监听窗口操作时间
   initBrowserWindowEvent(mainWindow);
-  // setTimeout(() => {
-  //   console.log(mainWindow)
-  //
-  // }, 2000)
   setTimeout(() => {
     mainWindow.webContents.send('on-init-browser', {
       autoHideMenuBar: mainWindow.autoHideMenuBar,

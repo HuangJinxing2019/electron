@@ -90,7 +90,66 @@ export function initBrowserWindowEvent(win){
         }
         return Array.isArray(value) && key !== 'setShape' && key !== 'setThumbarButtons' && key !== 'setAppDetails' ? win[key](value[0], value[1], value[2]) : win[key](value);
     })
+    function fn(e){
+        console.log(e)
+    }
 }
-function fn(e){
-    console.log(e)
+
+
+export function initWebContentEvent(contents){
+    // contents.on('did-start-navigation', (details) => {
+    //     console.log(details.url)
+    //     console.log('did-start-navigation')
+    // })
+    // contents.on('will-frame-navigate', (details) => {
+    //     console.log('will-frame-navigate')
+    //     // console.log(...arguments);
+    // })
+    // contents.on('will-navigate', (details) => {
+    //     console.log('will-navigate')
+    //     // console.log(...arguments);
+    // })
+    // contents.on('will-redirect', (details) => {
+    //     console.log('will-redirect')
+    //     // console.log(...arguments);
+    // })
+    // contents.on('did-redirect-navigation', (details) => {
+    //     console.log('did-redirect-navigation')
+    //     // console.log(...arguments);
+    // })
+    // contents.on('did-frame-navigate', () => {
+    //     console.log('did-frame-navigate')
+    //     // console.log(...arguments);
+    // })
+    // contents.on('did-navigate', () => {
+    //     console.log('did-navigate')
+    //     console.log(...arguments);
+    // })
+    contents.on('ipc-message', () => {
+        console.log('ipc-message')
+        console.log(...arguments)
+    })
+    contents.on('ipc-message-sync', () => {
+        console.log('ipc-message-sync')
+        console.log(...arguments)
+    })
+    // loadURL资源加载完成、失败都会触发
+    contents.on('did-finish-load', () => {
+        console.log('did-finish-load')
+    })
+    // loadURL资源加载失败触发， 优先于did-fail-load
+    contents.on('did-fail-load', () => {
+        console.log('did-fail-load')
+    })
+    // loadURL资源加载失败触发， 优先于did-fail-load
+    contents.on('did-fail-provisional-load', () => {
+        console.log('did-fail-provisional-load')
+    })
+    // 创建新窗口被触发。
+    contents.on('did-create-window', () => {
+        console.log('did-create-window')
+    })
+    contents.on('dom-ready', () => {
+        console.log('dom-ready')
+    })
 }

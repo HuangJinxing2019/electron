@@ -45,5 +45,23 @@ export const routes = [
         component: () => import('@/views/browserWindow/browserFunction/index.vue')
       }
     ]
+  },
+  {
+    path: '/webContents',
+    name: 'webContents',
+    component: Layout,
+    title: 'webContents',
+    icon: 'arcticons:styxbrowser',
+    children: [
+      {
+        path: '/webContents/introduce',
+        name: 'webContentsIntroduce',
+        meta: {
+          parentPath: '/webContents'
+        },
+        title: '认识与导航事件',
+        component: () => import('@/views/webContents/introduce/index.vue')
+      },
+    ]
   }
 ]

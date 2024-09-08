@@ -3,7 +3,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from 'url'
 import isDev from "electron-is-dev";
 import { windowOption } from "./config/browerWindowOption.js";
-import { initBrowserWindowEvent } from "./utils/browserWindow.js";
+import { initBrowserWindowEvent, initWebContentEvent } from "./utils/browserWindow.js";
 
 app.commandLine.appendSwitch('ignore-certificate-errors');
 const _fileURLToPath = fileURLToPath(import.meta.url);
@@ -23,6 +23,7 @@ const createWindow = () => {
   mainWindow.maximize(true)
   // 添加监听窗口操作时间
   initBrowserWindowEvent(mainWindow);
+  initWebContentEvent(mainWindow.webContents);
   setTimeout(() => {
     mainWindow.webContents.send('on-init-browser', {
       autoHideMenuBar: mainWindow.autoHideMenuBar,
@@ -50,6 +51,7 @@ const createWindow = () => {
   }, 3000)
   // show为false是，ready-to-show事件后显示窗口
   mainWindow.once('ready-to-show', () => {
+    console.log('ready-to-show')
     mainWindow.show()
   })
 
@@ -57,8 +59,9 @@ const createWindow = () => {
   if(isDev){
     // 开发环境
     mainWindow.loadURL('http://localhost:8888/')
+    // mainWindow.webContents.loadURL('https://www.electronjs.org/zh/')
     // 打开开发工具
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
   } else {
     // 生成环境
   }

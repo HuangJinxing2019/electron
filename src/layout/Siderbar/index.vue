@@ -3,12 +3,13 @@
     <a-layout-sider :width="200" style="background: #fff">
       <div style="height: calc(100vh - 64px)">
         <a-menu
-            v-model:openKeys="openKeys"
+            :openKeys="openKeys"
             v-model:selectedKeys="selectedKeys"
             style="width: 100%"
             mode="inline"
             :items="menuTree"
             @select="selectChange"
+            @openChange="onOpenChange"
         ></a-menu>
       </div>
     </a-layout-sider>
@@ -27,7 +28,11 @@
   const menuTree = ref([])
   const openKeys = ref([])
   const selectedKeys = ref([])
-  function getChildren(list, parentKey){
+  const rootSubmenuKeys = [];
+  const onOpenChange = (keys) => {
+    openKeys.value = [keys.pop()]
+  };
+  function getChildren(list){
     if (!list) return null;
     return list.map((item) => {
       return {

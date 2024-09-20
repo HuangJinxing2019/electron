@@ -56,14 +56,18 @@ const createWindow = () => {
   })
 
   // 加载 index.html
+  console.log(isDev)
   if(isDev){
     // 开发环境
-    mainWindow.loadURL('http://localhost:8888/')
+    // mainWindow.loadURL('http://localhost:8888/')
+    console.log(join(dirname(_fileURLToPath), '../dist/index.html'))
+    mainWindow.loadFile(join(dirname(_fileURLToPath), '../dist/index.html'))
     // mainWindow.webContents.loadURL('https://www.electronjs.org/zh/')
     // 打开开发工具
     mainWindow.webContents.openDevTools()
   } else {
     // 生成环境
+    mainWindow.loadFile('../dist/index.html')
   }
 }
 

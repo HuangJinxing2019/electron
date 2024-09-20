@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 const root = process.cwd();
 const pathResolve = (pathname) => resolve(root, '.', pathname);
 export default defineConfig({
+  base: './',
   resolve: {
     extensions: ['.vue', '.js'],
     alias: [

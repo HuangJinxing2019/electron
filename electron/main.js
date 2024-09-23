@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import { join, dirname } from "node:path";
 import { fileURLToPath } from 'url'
-import isDev from "electron-is-dev";
 import { windowOption } from "./config/browerWindowOption.js";
 import { initBrowserWindowEvent, initWebContentEvent } from "./utils/browserWindow.js";
 
@@ -14,7 +13,7 @@ const createWindow = () => {
     webPreferences: {
       preload: join(dirname(_fileURLToPath), '/preload/index.mjs'),
       // 禁用网页安全性（仅开发环境）
-      webSecurity: !isDev,
+      webSecurity: process.env.NODE_ENV === 'production',
       // contextIsolation: false, // 关闭上下文隔离
       // nodeIntegration: true,
       sandbox: false,
@@ -56,18 +55,15 @@ const createWindow = () => {
   })
 
   // 加载 index.html
-  console.log(isDev)
-  if(isDev){
+  if(process.env.NODE_ENV !== 'production'){
     // 开发环境
-    // mainWindow.loadURL('http://localhost:8888/')
-    console.log(join(dirname(_fileURLToPath), '../dist/index.html'))
-    mainWindow.loadFile(join(dirname(_fileURLToPath), '../dist/index.html'))
+    mainWindow.loadURL('http://localhost:8888/')
     // mainWindow.webContents.loadURL('https://www.electronjs.org/zh/')
     // 打开开发工具
     mainWindow.webContents.openDevTools()
   } else {
-    // 生成环境
-    mainWindow.loadFile('../dist/index.html')
+    // 生产环境
+    mainWindow.loadFile(join(dirname(_fileURLToPath), '../dist/index.html'))
   }
 }
 
